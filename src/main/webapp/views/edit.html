@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div align="center">
+  <form action="/products/edit" method="post" th:object="${product}">
+<!--    <input th:field="*{id}" hidden="hidden"><br>-->
+    <input th:field="*{name}"><br>
+    <input th:field="*{img}"><br>
+    <input th:field="*{price}"><br>
+    <button type="submit">Edit</button>
+  </form>
+</div>
+
+</body>
+</html>
