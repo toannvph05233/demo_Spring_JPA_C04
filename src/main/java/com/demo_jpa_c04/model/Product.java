@@ -1,9 +1,6 @@
 package com.demo_jpa_c04.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Product {
@@ -13,15 +10,26 @@ public class Product {
     private int price;
     private String name;
     private String img;
+    @ManyToOne
+    private Category category;
 
     public Product() {
     }
 
-    public Product(int id, int price, String name, String img) {
+    public Product(int id, int price, String name, String img, Category category) {
         this.id = id;
         this.price = price;
         this.name = name;
         this.img = img;
+        this.category = category;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public int getId() {

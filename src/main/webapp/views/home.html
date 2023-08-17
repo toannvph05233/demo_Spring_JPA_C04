@@ -33,16 +33,29 @@
             <td><img th:src="${s.img}" width="250" height="300"></td>
             <td th:text="${s.price}"></td>
             <td>
-                <a th:href="@{/products/edit/{id}(id=${s.id})}"  type="button" class="btn btn-warning">Edit</a>
+                <a th:href="@{/products/edit/{id}(id=${s.id})}" type="button" class="btn btn-warning">Edit</a>
             </td>
             <td>
-                <button onclick="return confirm('bạn muốn xóa?')" n type="button" class="btn btn-danger">Delete</button>
+                <a onclick="return confirm('bạn muốn xóa ?')" th:href="@{/products/delete/{id}(id=${s.id})}"
+                   type="button" class="btn btn-danger">Delete
+                </a>
             </td>
 
         </tr>
 
+
         </tbody>
     </table>
+    <span th:if="${products.hasPrevious()}">
+        <a class="btn btn-warning" th:href="@{/products(page=${products.getNumber() - 1})}"> <= </a>
+    </span>
+
+    <span th:text="${products.getNumber() + 1} + ' / ' + ${products.totalPages}"></span>
+
+    <span th:if="${products.hasNext()}">
+    <a class="btn btn-warning" th:href="@{/products(page=${products.getNumber() + 1})}"> => </a>
+    </span>
+
 </div>
 </body>
 </html>

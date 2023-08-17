@@ -7,10 +7,14 @@
 <body>
 <div align="center">
   <form action="/products/edit" method="post" th:object="${product}">
-<!--    <input th:field="*{id}" hidden="hidden"><br>-->
+    <input th:field="*{id}" hidden="hidden"><br>
     <input th:field="*{name}"><br>
     <input th:field="*{img}"><br>
     <input th:field="*{price}"><br>
+      <select name="idCategory">
+          <option th:value="${product.category.id}" th:text="${product.category.name}"></option>
+          <option th:each="c: ${categories}" th:value="${c.id}" th:text="${c.name}"></option>
+      </select>
     <button type="submit">Edit</button>
   </form>
 </div>
