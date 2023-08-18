@@ -6,5 +6,6 @@ import org.springframework.data.domain.Pageable;
 
 public interface IProductService extends IService<Product> {
     void save(Product product, int idCategory);
-    Page<Product> getAll(Pageable pageable);
+    Product findByName(String name);
+    public Page<Product> getAll(Pageable pageable, String nameSearch);
 }

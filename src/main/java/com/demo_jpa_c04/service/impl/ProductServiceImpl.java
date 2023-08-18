@@ -59,7 +59,12 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public Page<Product> getAll(Pageable pageable) {
-        return productRepo.findAll(pageable);
+    public Product findByName(String name) {
+        return productRepo.findByName(name);
+    }
+
+    @Override
+    public Page<Product> getAll(Pageable pageable, String nameSearch) {
+        return productRepo.getAllByNameHQL(nameSearch, pageable);
     }
 }

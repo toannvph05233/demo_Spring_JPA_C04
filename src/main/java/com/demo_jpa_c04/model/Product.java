@@ -1,14 +1,22 @@
 package com.demo_jpa_c04.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 @Entity
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Min(value = 0, message = "Giá phải >= 0")
     private int price;
+
+    @NotEmpty(message = "Không được để trống")
+    @Pattern(regexp = "^T\\d+$", message = "sai dinh dang")
+    @Size(min = 5, message = "Tên phải lớn hơn 5 ký tự")
     private String name;
+
     private String img;
     @ManyToOne
     private Category category;

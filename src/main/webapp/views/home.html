@@ -47,13 +47,13 @@
         </tbody>
     </table>
     <span th:if="${products.hasPrevious()}">
-        <a class="btn btn-warning" th:href="@{/products(page=${products.getNumber() - 1})}"> <= </a>
+        <a class="btn btn-warning" th:href="@{/products(page=${products.getNumber() - 1}, nameSearch=${nameSearch})}"> <= </a>
     </span>
 
     <span th:text="${products.getNumber() + 1} + ' / ' + ${products.totalPages}"></span>
 
     <span th:if="${products.hasNext()}">
-    <a class="btn btn-warning" th:href="@{/products(page=${products.getNumber() + 1})}"> => </a>
+    <a class="btn btn-warning" th:href="@{/products(page=${products.getNumber() + 1}, nameSearch=${nameSearch})}"> => </a>
     </span>
 
 </div>
