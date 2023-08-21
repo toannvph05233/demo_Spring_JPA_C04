@@ -36,9 +36,18 @@ public class ProductController {
     }
 
     @GetMapping
-    public ModelAndView home(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "") String nameSearch) {
+    public ModelAndView home1(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "") String nameSearch) {
         ModelAndView modelAndView = new ModelAndView("home");
-        Page<Product> products = productService.getAll(PageRequest.of(page, 1, Sort.by("price")), nameSearch);
+        Page<Product> products = productService.getAll(PageRequest.of(page, 3, Sort.by("price")), nameSearch);
+        modelAndView.addObject("products", products);
+        modelAndView.addObject("nameSearch", nameSearch);
+        return modelAndView;
+    }
+
+    @GetMapping("/home")
+    public ModelAndView home2(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "") String nameSearch) {
+        ModelAndView modelAndView = new ModelAndView("index");
+        Page<Product> products = productService.getAll(PageRequest.of(page, 3, Sort.by("price")), nameSearch);
         modelAndView.addObject("products", products);
         modelAndView.addObject("nameSearch", nameSearch);
         return modelAndView;

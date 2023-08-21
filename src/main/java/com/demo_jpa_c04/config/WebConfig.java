@@ -6,6 +6,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -15,6 +16,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.spring5.ISpringTemplateEngine;
@@ -33,6 +35,7 @@ import java.util.Properties;
 @ComponentScan("com.demo_jpa_c04")
 @EnableTransactionManagement
 @EnableJpaRepositories("com.demo_jpa_c04.repository")
+@EnableAspectJAutoProxy
 public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
@@ -114,6 +117,10 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         return transactionManager;
     }
 
-
-
+    @Override
+    // chỉ cho Spring biết chỗ lấy tài liệu tĩnh.(js,css,img)
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/**")
+                .addResourceLocations("file:/Users/johntoan98gmail.com/Desktop/demo_JPA_c04/src/main/webapp/");
+    }
 }
