@@ -1,5 +1,6 @@
 package com.demo_jpa_c04.controller;
 
+import com.demo_jpa_c04.model.Account;
 import com.demo_jpa_c04.model.Category;
 import com.demo_jpa_c04.model.Product;
 import com.demo_jpa_c04.repository.ProductRepo;
@@ -15,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -35,6 +37,9 @@ public class ProductController {
         return categoryService.getAll();
     }
 
+    @Autowired
+    HttpSession session;
+
     @GetMapping
     public ModelAndView home1(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "") String nameSearch) {
         ModelAndView modelAndView = new ModelAndView("home");
@@ -45,11 +50,20 @@ public class ProductController {
     }
 
     @GetMapping("/home")
-    public ModelAndView home2(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "") String nameSearch) {
-        ModelAndView modelAndView = new ModelAndView("index");
-        Page<Product> products = productService.getAll(PageRequest.of(page, 3, Sort.by("price")), nameSearch);
-        modelAndView.addObject("products", products);
-        modelAndView.addObject("nameSearch", nameSearch);
+    public ModelAndView home2(@CookieValue String bang,
+                              @RequestParam(defaultValue = "0") int page,
+                              @RequestParam(defaultValue = "") String nameSearch) {
+        Account account = (Account) session.getAttribute("account");
+        ModelAndView modelAndView;
+        if (account != null){
+            modelAndView = new ModelAndView("index");
+            Page<Product> products = productService.getAll(PageRequest.of(page, 3, Sort.by("price")), nameSearch);
+            modelAndView.addObject("products", products);
+            modelAndView.addObject("bang", bang);
+            modelAndView.addObject("nameSearch", nameSearch);
+        }else {
+            modelAndView= new ModelAndView("redirect:/login");
+        }
         return modelAndView;
     }
 
